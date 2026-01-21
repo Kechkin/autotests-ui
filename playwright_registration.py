@@ -2,7 +2,9 @@ from playwright.sync_api import sync_playwright, expect
 
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(headless=False)
-    page = browser.new_page()
+    context = browser.new_context()
+    # Открываем новую страницу в рамках контекста
+    page = context.new_page()
 
     page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
 
@@ -25,4 +27,15 @@ with sync_playwright() as playwright:
     title = page.get_by_test_id("dashboard-toolbar-title-text")
     expect(title).to_be_visible()
 
-    page.wait_for_timeout(5000)
+    # Сохраняем состояние браузера (куки и localStorage) в файл для дальнейшего использования
+    context.storage_state(path="browser-state.json")
+
+
+# Остальной код регистрации нового пользователя без изменений
+
+with sync_playwright() as playwright:
+    browser = playwright.chromium.launch(headless=False)
+    context = browser.new_context(storage_state="browser-state.json") # Указываем файл с сохраненным состоянием
+    page = context.new_page()
+
+    page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/dashboard")
