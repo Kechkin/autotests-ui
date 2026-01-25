@@ -33,16 +33,13 @@ with sync_playwright() as playwright:
     page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
 
     text_courses = page.get_by_test_id("courses-list-toolbar-title-text")
-    text_courses.wait_for()
-    assert text_courses.text_content() == 'Courses'
+    expect(text_courses).to_have_text('Courses')
 
     icon_folder = page.get_by_test_id("courses-list-empty-view-icon")
     expect(icon_folder).to_be_visible()
 
     text_no_results = page.get_by_test_id("courses-list-empty-view-title-text")
-    text_no_results.wait_for()
-    assert text_no_results.text_content() == 'There is no results'
+    expect(text_no_results).to_have_text('There is no results')
 
     text_res_pipeline_displayed = page.get_by_test_id("courses-list-empty-view-description-text")
-    text_res_pipeline_displayed.wait_for()
-    assert text_res_pipeline_displayed.text_content() == 'Results from the load test pipeline will be displayed here'
+    expect(text_res_pipeline_displayed).to_have_text('Results from the load test pipeline will be displayed here')
