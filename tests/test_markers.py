@@ -3,7 +3,6 @@ import pytest
 
 @pytest.mark.regression
 class TestUserAuthentication:
-
     @pytest.mark.smoke
     def test_login(self):
         pass
@@ -18,7 +17,6 @@ class TestUserAuthentication:
 
 @pytest.mark.ui
 class TestUserInterface:
-
     @pytest.mark.smoke
     @pytest.mark.critical
     def test_login_button(self):
